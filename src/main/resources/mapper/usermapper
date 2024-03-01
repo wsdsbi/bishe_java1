@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.userMapper">
+    <select id="get_user"  resultType="com.example.demo.entity.User">
+        select * from user
+            where name=#{name}
+    </select>
+    <select id="get_tab_clom"  resultType="com.example.demo.entity.clom">
+        SELECT column_name as clom
+        FROM information_schema.columns
+        WHERE table_name = #{table}
+    </select>
+    <select id="get_tab_info"  resultType="com.example.demo.entity.clom">
+        SELECT TABLE_NAME as clom
+        FROM information_schema.TABLES
+        WHERE TABLE_SCHEMA = #{regin}
+    </select>
+</mapper>
