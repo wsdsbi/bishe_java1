@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.indicatorMapper">
+
+    <insert id="insert_indicator_control" parameterType="com.example.demo.entity.indicatorControl">
+        INSERT INTO indicator_control (active,regin,tablename,indicator,comment,account,owned,create_time,update_time)
+        VALUES (#{active},#{regin},#{tablename},#{indicator},#{comment},#{account},#{owned},#{createtime},#{updatetime})
+    </insert>
+    <select id="get_indicator" parameterType="com.example.demo.entity.indicatorControl" resultType="com.example.demo.entity.indicatorControl">
+        select
+            active,
+            regin,
+            tablename as tablename,
+            indicator,
+            account,
+            comment,
+            create_time as createtime,
+            owned
+        from
+            indicator_control
+        WHERE 1 = 1
+        <if test="regin != '' and regin != 'null' and regin != null">
+            AND regin = #{regin}
+        </if>
+        <if test="tablename != '' and tablename != 'null' and tablename != null">
+            AND tablename = #{tablename}
+        </if>
+        <if test="account != '' and account != 'null' and account != null">
+            AND account = #{account}
+        </if>
+        <if test="indicator != '' and indicator != 'null' and indicator != null">
+            AND indicator = #{indicator}
+        </if>
+            AND (owned = 'false' OR account = #{myaccount})
+        <if test="createtime != '' and createtime != 'null' and createtime != null">
+            AND create_time BETWEEN #{createtime} AND #{endtime}
+        </if>
+    </select>
+</mapper>
