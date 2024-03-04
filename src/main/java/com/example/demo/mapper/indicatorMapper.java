@@ -13,4 +13,5 @@ import java.util.List;
 public interface indicatorMapper {
     public Boolean insert_indicator_control(indicatorControl indicatorControl);
     public List<indicatorControl> get_indicator(indicatorControl indicatorControl);
+    public Boolean update_indicator_control(indicatorControl indicatorControl);
 }

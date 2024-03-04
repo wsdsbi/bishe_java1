@@ -24,4 +24,9 @@ public class indicatorController {
     public List<indicatorControl> get_indicator(@RequestBody indicatorControl indicator_control){
         return indicator_service.get_indicator(indicator_control);
     }
+
+    @PostMapping("/update_indicator_control")
+    public boolean update_indicator_control(@RequestBody indicatorControl indicator_control){
+        return indicator_service.update_indicator_control(indicator_control);
+    }
 }

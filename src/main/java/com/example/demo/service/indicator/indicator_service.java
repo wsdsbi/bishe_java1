@@ -20,4 +20,8 @@ public class indicator_service {
         System.out.println(indicatorMapper.get_indicator(indicatorControl)+"inditor");
         return indicatorMapper.get_indicator(indicatorControl);
     }
+
+    public Boolean update_indicator_control(indicatorControl indicatorControl) {
+        return indicatorMapper.update_indicator_control(indicatorControl);
+    }
 }

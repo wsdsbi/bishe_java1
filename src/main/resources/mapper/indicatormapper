@@ -9,33 +9,50 @@
         VALUES (#{active},#{regin},#{tablename},#{indicator},#{comment},#{account},#{owned},#{createtime},#{updatetime})
     </insert>
     <select id="get_indicator" parameterType="com.example.demo.entity.indicatorControl" resultType="com.example.demo.entity.indicatorControl">
-        select
+        SELECT
             active,
             regin,
-            tablename as tablename,
+            tablename AS tablename,
             indicator,
             account,
             comment,
-            create_time as createtime,
+            create_time,
             owned
-        from
+        FROM
             indicator_control
         WHERE 1 = 1
-        <if test="regin != '' and regin != 'null' and regin != null">
-            AND regin = #{regin}
+        <if test="regin != null and regin != ''">
+            AND regin LIKE CONCAT('%', #{regin}, '%')
         </if>
-        <if test="tablename != '' and tablename != 'null' and tablename != null">
-            AND tablename = #{tablename}
+        <if test="tablename != null and tablename != ''">
+            AND tablename LIKE CONCAT('%', #{tablename}, '%')
         </if>
-        <if test="account != '' and account != 'null' and account != null">
+        <if test="account != null and account != ''">
             AND account = #{account}
         </if>
-        <if test="indicator != '' and indicator != 'null' and indicator != null">
-            AND indicator = #{indicator}
+        <if test="indicator != null and indicator != ''">
+            AND indicator LIKE CONCAT('%', #{indicator}, '%')
         </if>
-            AND (owned = 'false' OR account = #{myaccount})
-        <if test="createtime != '' and createtime != 'null' and createtime != null">
+        AND (owned = 'false' OR account = #{myaccount})
+        <if test="createtime != null">
             AND create_time BETWEEN #{createtime} AND #{endtime}
         </if>
     </select>
+    <update id="update_indicator_control" parameterType="com.example.demo.entity.indicatorControl">
+        UPDATE indicator_control
+        SET
+            active = #{active},
+            regin = #{regin},
+            tablename = #{tablename},
+            indicator = #{indicator},
+            comment = #{comment},
+            account = #{account},
+            owned = #{owned},
+            update_time = #{updatetime}
+        WHERE
+             active = #{active} and
+                         regin = #{regin} and
+                         tablename = #{tablename} and
+                         indicator = #{indicator}
+    </update>
 </mapper>
