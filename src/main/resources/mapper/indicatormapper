@@ -5,8 +5,8 @@
 <mapper namespace="com.example.demo.mapper.indicatorMapper">
 
     <insert id="insert_indicator_control" parameterType="com.example.demo.entity.indicatorControl">
-        INSERT INTO indicator_control (active,regin,tablename,indicator,comment,account,owned,create_time,update_time)
-        VALUES (#{active},#{regin},#{tablename},#{indicator},#{comment},#{account},#{owned},#{createtime},#{updatetime})
+        INSERT INTO indicator_control (active,regin,tablename,indicator,comment,account,owned,create_time,update_time,status)
+        VALUES (#{active},#{regin},#{tablename},#{indicator},#{comment},#{account},#{owned},#{createtime},#{updatetime},#{status})
     </insert>
     <select id="get_indicator" parameterType="com.example.demo.entity.indicatorControl" resultType="com.example.demo.entity.indicatorControl">
         SELECT
@@ -37,6 +37,9 @@
         <if test="createtime != null">
             AND create_time BETWEEN #{createtime} AND #{endtime}
         </if>
+        <if test="address != null and address != ''">
+                    AND address LIKE CONCAT('%', #{address}, '%')
+                </if>
     </select>
     <update id="update_indicator_control" parameterType="com.example.demo.entity.indicatorControl">
         UPDATE indicator_control

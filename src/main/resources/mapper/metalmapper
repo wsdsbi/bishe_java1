@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bishe.mapper.metal_order_Mapper">
+
+    <insert id="create_metal_order" parameterType="bishe.entity.Metal_info">
+        INSERT INTO metal_info (type,bargin,height,price,`desc`,account,owned,create_time,update_time)
+        VALUES (#{type},#{bargin},#{height},#{price},#{desc},#{account},#{owned},#{createtime},#{updatetime})
+    </insert>
+
+    <insert id="insert_face_order" parameterType="bishe.entity.Metal_info">
+            INSERT INTO metal_info (type,height,price,`desc`,account,owned,create_time,update_time,status,address,date,station)
+            VALUES (#{type},#{height},#{price},#{desc},#{account},#{owned},#{createtime},#{updatetime},#{status},#{address},#{date},#{station})
+        </insert>
+
+    <select id="show_metal_order" parameterType="bishe.entity.Metal_info" resultType="bishe.entity.Metal_info">
+            SELECT
+                *
+            FROM
+                metal_info
+            WHERE 1 = 1
+            <if test="type != null and type != ''">
+                AND type LIKE CONCAT('%', #{type}, '%')
+            </if>
+            <if test="bargin != null and bargin != ''">
+                AND bargin LIKE CONCAT('%', #{bargin}, '%')
+            </if>
+            <if test="account != null and account != ''">
+                AND account = #{account}
+            </if>
+            <if test="height != null and height != ''">
+                AND height LIKE CONCAT('%', #{height}, '%')
+            </if>
+            AND (owned = 'false' OR account = #{myaccount})
+            and status=#{status}
+        </select>
+</mapper>
